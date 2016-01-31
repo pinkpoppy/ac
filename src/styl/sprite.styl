@@ -1,0 +1,147 @@
+/*
+Stylus variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon_home_width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon_home = x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet = width height image $spritesheet_sprites;
+*/
+$bg_name = 'bg';
+$bg_x = 4750px;
+$bg_y = 0px;
+$bg_offset_x = -4750px;
+$bg_offset_y = 0px;
+$bg_width = 244px;
+$bg_height = 244px;
+$bg_total_width = 4994px;
+$bg_total_height = 5294px;
+$bg_image = 'sprite.png';
+$bg = 4750px 0px -4750px 0px 244px 244px 4994px 5294px 'sprite.png' 'bg';
+$company_name = 'company';
+$company_x = 2744px;
+$company_y = 434px;
+$company_offset_x = -2744px;
+$company_offset_y = -434px;
+$company_width = 642px;
+$company_height = 552px;
+$company_total_width = 4994px;
+$company_total_height = 5294px;
+$company_image = 'sprite.png';
+$company = 2744px 434px -2744px -434px 642px 552px 4994px 5294px 'sprite.png' 'company';
+$down_name = 'down';
+$down_x = 3386px;
+$down_y = 324px;
+$down_offset_x = -3386px;
+$down_offset_y = -324px;
+$down_width = 724px;
+$down_height = 110px;
+$down_total_width = 4994px;
+$down_total_height = 5294px;
+$down_image = 'sprite.png';
+$down = 3386px 324px -3386px -324px 724px 110px 4994px 5294px 'sprite.png' 'down';
+$sprite_name = 'sprite';
+$sprite_x = 0px;
+$sprite_y = 3498px;
+$sprite_offset_x = 0px;
+$sprite_offset_y = -3498px;
+$sprite_width = 1372px;
+$sprite_height = 1796px;
+$sprite_total_width = 4994px;
+$sprite_total_height = 5294px;
+$sprite_image = 'sprite.png';
+$sprite = 0px 3498px 0px -3498px 1372px 1796px 4994px 5294px 'sprite.png' 'sprite';
+$title_name = 'title';
+$title_x = 4110px;
+$title_y = 244px;
+$title_offset_x = -4110px;
+$title_offset_y = -244px;
+$title_width = 640px;
+$title_height = 80px;
+$title_total_width = 4994px;
+$title_total_height = 5294px;
+$title_image = 'sprite.png';
+$title = 4110px 244px -4110px -244px 640px 80px 4994px 5294px 'sprite.png' 'title';
+$top_name = 'top';
+$top_x = 2014px;
+$top_y = 986px;
+$top_offset_x = -2014px;
+$top_offset_y = -986px;
+$top_width = 730px;
+$top_height = 716px;
+$top_total_width = 4994px;
+$top_total_height = 5294px;
+$top_image = 'sprite.png';
+$top = 2014px 986px -2014px -986px 730px 716px 4994px 5294px 'sprite.png' 'top';
+$wine_name = 'wine';
+$wine_x = 1372px;
+$wine_y = 1702px;
+$wine_offset_x = -1372px;
+$wine_offset_y = -1702px;
+$wine_width = 642px;
+$wine_height = 1796px;
+$wine_total_width = 4994px;
+$wine_total_height = 5294px;
+$wine_image = 'sprite.png';
+$wine = 1372px 1702px -1372px -1702px 642px 1796px 4994px 5294px 'sprite.png' 'wine';
+$spritesheet_width = 4994px;
+$spritesheet_height = 5294px;
+$spritesheet_image = 'sprite.png';
+$spritesheet_sprites = $bg $company $down $sprite $title $top $wine;
+$spritesheet = 4994px 5294px 'sprite.png' $spritesheet_sprites;
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  spriteWidth($icon_home)
+}
+
+.icon-email {
+  sprite($icon_email)
+}
+*/
+spriteWidth($sprite) {
+  width: $sprite[4];
+}
+
+spriteHeight($sprite) {
+  height: $sprite[5];
+}
+
+spritePosition($sprite) {
+  background-position: $sprite[2] $sprite[3];
+}
+
+spriteImage($sprite) {
+  background-image: url($sprite[8]);
+}
+
+sprite($sprite) {
+  spriteImage($sprite)
+  spritePosition($sprite)
+  spriteWidth($sprite)
+  spriteHeight($sprite)
+}
+
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of Stylus
+
+This must be run when you have at least 2 sprites.
+  If run with a single sprite, then there will be reference errors.
+
+sprites($spritesheet_sprites);
+*/
+sprites($sprites) {
+  for $sprite in $sprites {
+    $sprite_name = $sprite[9];
+    .{$sprite_name} {
+      sprite($sprite);
+    }
+  }
+}
